@@ -1,0 +1,120 @@
+
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8 " /> 
+	<meta http-equiv="X-UA-Comatible" content="IE=edge,chrome=1"/>
+	<title> Chcesz dowiedzieć się jaka jest pogoda? </title>
+    <link rel = "stylesheet" href="ustawienieStrony.css" type="text/css" /> 
+    <link rel = "stylesheet" href="fontello/css/fontello.css" type="text/css" /> 
+    <!--<link rel = "stylesheet" href = "fontello_/css/fontello.css" type = "text/css"/>-->
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Lora:wght@700&display=swap" rel="stylesheet">
+    <!--<script src=”https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap ”></script>-->
+    <script src="zegarData.js"></script>
+    <!-- Funkcja odswierzanie sklada sie z funkcji wywolanie ktora jest funkcja zegaru, oraz pobierania danych z pliku php-->
+    <script>
+        function odswierzenie(){
+            wywolanie();
+            //XMLHttpRequest stosowany do wysylania rzadan HTTP do serwera i odbierania odpowiedzi
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                // warunek ktory sprawdza czy stan odpiwedzi od serwera wartosc 200 informuje ze zadanie jest udane, readState sprawdza etap przetwarzania danych 4 informuje ze przetwarzanie zostało zakonczone
+                if (this.readyState == 4 && this.status == 200) {
+                    // przeksztalcanie JSON-a na obiekt w JavaScripcie
+                    var data = JSON.parse(this.responseText);
+                    document.getElementById("TemperaturaGlowny").innerHTML = data.temperatura + "°" ;
+                    document.getElementById("indeksUV").innerHTML ="Indeks UV:" +"<br>"+"<br>"+ data.uv;
+                    document.getElementById("wilgotność").innerHTML ="Wilgotność:" +"<br>"+"<br>"+ data.wilgotnosc+ " [%]";
+                    document.getElementById("ciśnienie").innerHTML ="Ciśnienie:" +"<br>"+"<br>" + data.cisnienie+ " [hPa]";
+                    document.getElementById("prędkośćWiatru").innerHTML ="Prędkość Wiatru:" +"<br>"+"<br>" + data.wiatr+ " [m/s]";
+                    var temp = Number(data.temperatura);
+                    console.log(typeof temp);
+                    if (temp > 0)
+                    {
+                      var backG = document.getElementsByTagName("body")[0];
+                      var symbol1 = document.getElementById("logo");
+                      backG.style.backgroundImage = "url('https://mobileclick.pl/wp-content/uploads/2020/05/rain-ezgif.com-optimize.gif')";  
+                      var nazwaKlasy = symbol1.className;
+                      document.getElementById("logo").innerHTML = "<i class='demo-icon icon-sunrise'></i>";
+                    }
+                    else if (temp <= 0 )
+                    {
+                        var backG1 = document.getElementsByTagName("body")[0];
+                        var symbol2 = document.getElementById("logo");
+                        backG1.style.backgroundImage = "url('https://img1.stylowi.pl/images/items/o/201606/stylowi_pl_nauka-i-natura_pogoda-okropna-tylko-do-lozeczka-kochani_44600150.gif')";
+                        var nazwaKlasy = symbol2.classList[0];
+                        document.getElementById("logo").innerHTML = "<i class='dem-icon icon-cloud-sun-inv'></i>";
+                        //symbol2.classList.remove(nazwaKlasy);
+                       // symbol2.classList.add("demo-icon icon-rain-inv");
+                    }
+                }
+            };
+            xhttp.open("GET","http://192.168.56.1/stacjaProject/pobieraieDanych.php",true);
+            xhttp.send();
+         
+        }
+        // oswierzanie funckji co minute dzięki czemu dane przesyłane między php a strona są na bierząco aktualizowane.
+        setInterval(odswierzenie,60000);
+    </script>
+
+    <style>
+        body{
+            background-image: url(https://media.tenor.com/xeHveGcSNsgAAAAC/clouds-weather.gif);
+	        background-size: cover;
+	        background-position: center;
+	        background-repeat: no-repeat;
+	        background-attachment: fixed;
+        }
+    </style>
+     
+</head>
+
+<body onload="odswierzenie();">
+    <div id = "container">
+        <div id = "Parametry">
+            Parametry pogodowe <br/>
+            Bielsko - Biała
+        </div>
+        <div id = "TemperaturaGlowny">
+            Temperatura
+        </div>
+        <div id ="logo">
+           <i class="demo-icon icon-cloud-sun-inv"></i>
+        </div>
+        <div id = "data">
+                23.02.2000<br/>
+                12:00:00
+        </div>
+        <div class = "square">
+            <div id = "indeksUV">
+                Temperatura <br/> <br/>
+            </div>
+            <br/><br/>
+            <i class="demo-icon icon-sun-inv"></i>
+        </div>
+        <div class = "square">
+            <div id = "wilgotność">
+                Wilgotność
+            </div>
+            <br/><br/>
+            <i class="demo-icon icon-droplet"></i>
+        </div>
+        <div style="clear:both;"></div>
+        <div class = "square">
+            <div id  = "ciśnienie">
+                Ciśnienie
+            </div>
+            <br/><br/>
+            <i class="demo-icon icon-gauge"></i>
+        </div>
+        <div class = "square">
+            <div id = "prędkośćWiatru">
+                Prędkość wiatru
+            </div>
+            <br/><br/>
+            <i class="demo-icon icon-wind"></i>
+        </div>
+        <div style="clear:both;"></div> 
+    </div>
+</body>

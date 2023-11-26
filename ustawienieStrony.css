@@ -1,0 +1,91 @@
+body 
+{	
+	
+	font-family: 'Lora', serif;
+	
+}
+
+#container
+{	
+	width: 740px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+#Parametry {	
+	margin-top: 40px;
+	width: 100%;;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+	font-family: 'PT Serif', serif;
+	
+}
+
+#TemperaturaGlowny {
+
+	color: white;
+	text-align: center;
+	font-family: 'PT Serif', serif;
+	font-size: 50px;
+	margin-bottom: 10px ;
+
+}
+
+#logo
+{
+	color: white;
+	text-align: center;
+}
+#data {
+	
+    font-size: 20px;
+    color: white;
+    text-align: center;
+	font-family: 'PT Serif', serif;
+}
+
+.square
+{
+	width: 350px;
+	height: 260px;
+	background-color: rgb(118, 144, 230, 0.5);
+	border-radius: 10px;
+	color:white;
+	float: left;
+	margin:10px ;
+}
+
+
+#indeksUV
+{	
+	text-align: center;
+	padding: 10px;
+	font-size: 25px;	
+	font-weight: 700;
+}
+
+#wilgotność
+{	
+	text-align: center;
+	padding: 10px;
+	font-size: 25px;	
+	font-weight: 700;
+}
+
+#ciśnienie
+{	
+	text-align: center;
+	padding: 10px;
+	font-size: 25px;
+	font-weight: 700;	
+}
+
+#prędkośćWiatru
+{	
+	text-align: center;
+	padding: 10px;
+	font-size: 25px;
+	font-weight: 700;	
+}
